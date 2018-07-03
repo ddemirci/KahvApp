@@ -10,7 +10,9 @@ namespace KahvApp
     {
         KucukBardak,
         BuyukBardak,
-        Fincan
+        Fincan,
+        Kutu,
+        Sise
     };
     class Drink : Product
     {

@@ -15,5 +15,7 @@ namespace KahvApp
         public const decimal FincanNescafe = 5;
         public const decimal Soda = 2;
         public const decimal Mesrubat = 3;
+        public const decimal KasarliTost = 5;
+        public const decimal KarisikTost = 6;
     }
 }

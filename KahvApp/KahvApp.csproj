@@ -67,6 +67,7 @@
     <Compile Include="Soda.cs" />
     <Compile Include="SoftDrink.cs" />
     <Compile Include="Tea.cs" />
+    <Compile Include="Toast.cs" />
     <Compile Include="TurkishCoffee.cs" />
     <EmbeddedResource Include="Fis.resx">
       <DependentUpon>Fis.cs</DependentUpon>

@@ -8,5 +8,12 @@ namespace KahvApp
 {
     class Nescafe : Drink
     {
+        public Nescafe(DrinkUnit Unit)
+        {
+            this.Name = "Nescafe";
+            this.Unit = Unit;
+            this.UnitPrice = Unit.Equals(DrinkUnit.Fincan) ? PriceList.FincanNescafe :
+                                                             PriceList.KucukNescafe;
+        }
     }
 }
