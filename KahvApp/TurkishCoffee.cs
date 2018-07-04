@@ -8,11 +8,12 @@ namespace KahvApp
 {
     class TurkishCoffee : Drink
     {
-        public TurkishCoffee(DrinkUnit Unit)
+        public TurkishCoffee(DrinkUnit Unit, int Count)
         {
             this.Name = "Türk Kahvesi";
             this.Unit = Unit;
             this.UnitPrice = PriceList.TurkKahvesi;
+            this.Count = Count;
         }
     }
 }

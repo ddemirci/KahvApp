@@ -15,7 +15,7 @@ namespace KahvApp
     class Toast : Food
     {
         ToastType Type;
-        public Toast(FoodUnit Unit, ToastType Type)
+        public Toast(FoodUnit Unit, ToastType Type, int Count)
         {
             this.Name = "Tost";
             this.Unit = Unit;
@@ -25,7 +25,7 @@ namespace KahvApp
             this.UnitPrice = Unit.Equals(FoodUnit.Ceyrek) ? TypePrice / 4 :
                              Unit.Equals(FoodUnit.Yarim)  ? TypePrice / 2 :
                                                             TypePrice;
-           
+            this.Count = Count;
         }
     }
 }

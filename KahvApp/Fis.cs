@@ -39,65 +39,179 @@ namespace KahvApp
             comboBox1.Items.Add("Kaşarlı Tost");
             comboBox1.Items.Add("Karışık Tost");
 
-            this.comboBox1.SelectedIndexChanged += 
-                new System.EventHandler(comboBox1_SelectedIndexChanged);
+            comboBox2.Items.Add(1);
+            comboBox2.Items.Add(2);
+            comboBox2.Items.Add(3);
+            comboBox2.Items.Add(4);
+            comboBox2.Items.Add(5);
+            comboBox2.Items.Add(6);
+            comboBox2.Items.Add(7);
+            comboBox2.Items.Add(8);
+
+            comboBox3.Items.Add("Çeyrek");
+            comboBox3.Items.Add("Yarım");
+            comboBox3.Items.Add("Tam");
+
+            this.button1.Click += new System.EventHandler(Ekle_Button_Click);
+
+            listView1.View = View.Details;
+            listView1.Columns[1].Width = 150; // Ürün adı sütunu
+
+            this.comboBox1.SelectedIndexChanged +=
+                new System.EventHandler(ComboBox1_SelectedIndexChanged);
         }
 
-        private void comboBox1_SelectedIndexChanged(object Sender, EventArgs e)
+        private void ComboBox1_SelectedIndexChanged(object Sender, EventArgs e)
         {
-            if(comboBox1.SelectedItem.ToString().Trim().Equals("Kaşarlı Tost") ||
+            if (comboBox1.SelectedItem.ToString().Trim().Equals("Kaşarlı Tost") ||
                comboBox1.SelectedItem.ToString().Trim().Equals("Karışık Tost"))
             {
-                comboBox3.Items.Add("Çeyrek");
-                comboBox3.Items.Add("Yarım");
-                comboBox3.Items.Add("Tam");
+                comboBox2.SelectedIndex = -1;
+                comboBox3.SelectedIndex = -1;
                 comboBox3.Show();
             }
 
             else
             {
-                comboBox2.Items.Add(1);
-                comboBox2.Items.Add(2);
-                comboBox2.Items.Add(3);
-                comboBox2.Items.Add(4);
-                comboBox2.Items.Add(5);
-                comboBox2.Items.Add(6);
-                comboBox2.Items.Add(7);
-                comboBox2.Items.Add(8);
-
                 comboBox2.Enabled = true;
+                comboBox2.SelectedIndex = -1;
+                comboBox3.Hide();
             }
 
-            this.comboBox3.SelectedIndexChanged +=  new System.EventHandler(comboBox3_SelectedIndexChanged);
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(ComboBox3_SelectedIndexChanged);
         }
 
-        private void comboBox3_SelectedIndexChanged(object Sender, EventArgs e)
+        private void ComboBox3_SelectedIndexChanged(object Sender, EventArgs e)
         {
-            if(comboBox3.SelectedItem != null)
+            if (comboBox3.SelectedItem != null)
             {
-                comboBox2.Items.Add(1);
-                comboBox2.Items.Add(2);
-                comboBox2.Items.Add(3);
-                comboBox2.Items.Add(4);
-                comboBox2.Items.Add(5);
-                comboBox2.Items.Add(6);
-                comboBox2.Items.Add(7);
-                comboBox2.Items.Add(8);
-
                 comboBox2.Enabled = true;
             }
+
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(ComboBox2_SelectedIndexChanged);
         }
 
-        
+        private void ComboBox2_SelectedIndexChanged(object Sender, EventArgs e)
+        {
 
-        //KucukCay = 
-        //BuyukCay = 
-        //TurkKahvesi
-        //KucukNescaf
-        //FincanNesca
-        //Soda = 2;
-        //Mesrubat = 
-        //KasarliTost
-        //KarisikTost
+        }
+        public void Ekle_Button_Click(object Sender, EventArgs e)
+        {
+            string[] arr = new string[5];
+            ListViewItem itm;
+            arr[0] = "1";
+            //arr[1] = this.comboBox1.GetItemText(this.comboBox1.SelectedItem);
+            //arr[2] = "2.00 TL";
+            //arr[3] = "4";
+            //arr[4] = "8.00 TL";
+            //itm = new ListViewItem(arr);
+            //listView1.Items.Add(itm);
+
+            string product = this.comboBox1.GetItemText(this.comboBox1.SelectedItem);
+            int count = Convert.ToInt32(this.comboBox2.GetItemText(this.comboBox2.SelectedItem));
+            if (product.Equals("Küçük Çay"))
+            {
+                Tea tea = new Tea(DrinkUnit.KucukBardak, count);
+                arr[1] = product;
+                arr[2] = tea.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (tea.UnitPrice * count).ToString();
+
+                //itm = new ListViewItem(arr);
+                //listView1.Items.Add(itm);
+            }
+            else if (product.Equals("Büyük Çay"))
+            {
+                Tea tea = new Tea(DrinkUnit.BuyukBardak, count);
+                arr[1] = product;
+                arr[2] = tea.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (tea.UnitPrice * count).ToString();
+
+                //itm = new ListViewItem(arr);
+                //listView1.Items.Add(itm);
+            }
+            else if (product.Equals("Türk Kahvesi"))
+            {
+                TurkishCoffee turkishCoffee = new TurkishCoffee(DrinkUnit.Fincan, count);
+                arr[1] = product;
+                arr[2] = turkishCoffee.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (turkishCoffee.UnitPrice * count).ToString();
+
+                //itm = new ListViewItem(arr);
+                //listView1.Items.Add(itm);
+            }
+
+            else if (product.Equals("Küçük Nescafe"))
+            {
+                Nescafe nescafe = new Nescafe(DrinkUnit.KucukBardak, count);
+                arr[1] = product;
+                arr[2] = nescafe.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (nescafe.UnitPrice * count).ToString();
+            }
+            else if (product.Equals("Fincan Nescafe"))
+            {
+                Nescafe nescafe = new Nescafe(DrinkUnit.Fincan, count);
+                arr[1] = product;
+                arr[2] = nescafe.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (nescafe.UnitPrice * count).ToString();
+            }
+            else if (product.Equals("Soda"))
+            {
+                Soda soda = new Soda(DrinkUnit.Sise, count);
+                arr[1] = product;
+                arr[2] = soda.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (soda.UnitPrice * count).ToString();
+            }
+            //else if(product.Equals("Kola") || 
+            //    product.Equals("Sprite") || 
+            //    product.Equals("Gazoz"))
+            //{
+            //    SoftDrink mesrubat = new SoftDrink((SoftDrinkType)product, count);
+            //    arr[1] = product;
+            //    arr[2] = mesrubat.UnitPrice.ToString();
+            //    arr[3] = count.ToString();
+            //    arr[4] = (mesrubat.UnitPrice * count).ToString();
+            //}
+            else if (product.Equals("Kaşarlı Tost") || product.Equals("Karışık Tost"))
+            {
+                FoodUnit unit = comboBox3.Equals("Çeyrek") ? FoodUnit.Ceyrek :
+                                comboBox3.Equals("Yarım") ? FoodUnit.Yarim :
+                                                           FoodUnit.Tam;
+
+                ToastType type = comboBox1.Equals("Kaşarlı Tost") ? ToastType.Kasarli : 
+                                                                  ToastType.Karisik ;
+                Toast tost = new Toast(unit, type, count);
+                arr[1] = product;
+                arr[2] = tost.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (tost.UnitPrice * count).ToString();
+
+            }
+            else
+            {
+
+            }
+            itm = new ListViewItem(arr);
+            listView1.Items.Add(itm);
+
+        }
+
     }
 }
+
+//"Küçük Çay");
+//"Büyük Çay");
+//"Türk Kahvesi"
+//"Küçük Nescafe
+//"Fincan Nescaf
+//"Soda");
+//"Kola");
+//"Sprite");
+//"Gazoz");
+//"Kaşarlı Tost"
+//"Karışık Tost"

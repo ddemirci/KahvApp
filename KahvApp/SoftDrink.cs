@@ -18,12 +18,13 @@ namespace KahvApp
     //Mesrubat
     class SoftDrink : Drink
     {
-        public SoftDrink(SoftDrinkType DrinkName)
+        public SoftDrink(SoftDrinkType DrinkName, int Count)
         {
             this.Name = DrinkName.ToString();
             this.Unit = DrinkName.Equals(SoftDrinkType.Ayran) ? DrinkUnit.Kutu :
                                                                 DrinkUnit.Sise;
             this.UnitPrice = PriceList.Mesrubat;
+            this.Count = Count;
         }                       
     }
 }

@@ -38,6 +38,11 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Sıra = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Ürün = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BirimFiyat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Adet = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Tutar = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // label1
@@ -68,9 +73,15 @@
             // 
             // listView1
             // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Sıra,
+            this.Ürün,
+            this.BirimFiyat,
+            this.Adet,
+            this.Tutar});
             this.listView1.Location = new System.Drawing.Point(260, 21);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(353, 234);
+            this.listView1.Size = new System.Drawing.Size(418, 268);
             this.listView1.TabIndex = 4;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -126,11 +137,31 @@
             this.textBox1.Size = new System.Drawing.Size(24, 20);
             this.textBox1.TabIndex = 10;
             // 
+            // Sıra
+            // 
+            this.Sıra.Text = "Sıra";
+            // 
+            // Ürün
+            // 
+            this.Ürün.Text = "Ürün";
+            // 
+            // BirimFiyat
+            // 
+            this.BirimFiyat.Text = "Birim Fiyat";
+            // 
+            // Adet
+            // 
+            this.Adet.Text = "Adet";
+            // 
+            // Tutar
+            // 
+            this.Tutar.Text = "Tutar";
+            // 
             // Fis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 305);
+            this.ClientSize = new System.Drawing.Size(690, 334);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox3);
@@ -160,5 +191,10 @@
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ColumnHeader Sıra;
+        private System.Windows.Forms.ColumnHeader Ürün;
+        private System.Windows.Forms.ColumnHeader BirimFiyat;
+        private System.Windows.Forms.ColumnHeader Adet;
+        private System.Windows.Forms.ColumnHeader Tutar;
     }
 }

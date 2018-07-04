@@ -8,11 +8,12 @@ namespace KahvApp
 {
     class Soda : Drink
     {
-        public Soda(DrinkUnit Unit)
+        public Soda(DrinkUnit Unit, int Count)
         {
             this.Name = "Soda";
             this.Unit = Unit;
             this.UnitPrice = PriceList.Soda;
+            this.Count = Count;
         }
     }
 }

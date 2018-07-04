@@ -11,7 +11,5 @@ namespace KahvApp
         public string Name;
         public decimal UnitPrice;
         public int Count;
-
-        
     }
 }
