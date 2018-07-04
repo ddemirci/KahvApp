@@ -12,6 +12,8 @@ namespace KahvApp
 {
     public partial class Form1 : Form
     {
+        private List<Product> kasa = new List<Product>();
+
         public Form1()
         {
             InitializeComponent();
@@ -32,12 +34,19 @@ namespace KahvApp
             this.masa15.Click += new EventHandler(masa_click);
             this.masa16.Click += new EventHandler(masa_click);
             this.masa17.Click += new EventHandler(masa_click);
+            this.TopLevel = true;
         }
 
         private void masa_click(object sender, EventArgs e)
         {
+            Fis f = new Fis((sender as Button).Name);
+            //f.TopLevel = false;
+            //this.Controls.Add(f);
+            f.Show();
 
-            throw new NotImplementedException();
+
+
+            //throw new NotImplementedException();
         }
 
         private void Form1_Load(object sender, EventArgs e)

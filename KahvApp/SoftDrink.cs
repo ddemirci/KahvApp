@@ -21,9 +21,9 @@ namespace KahvApp
         public SoftDrink(SoftDrinkType DrinkName)
         {
             this.Name = DrinkName.ToString();
-            this.UnitPrice = PriceList.Mesrubat;
             this.Unit = DrinkName.Equals(SoftDrinkType.Ayran) ? DrinkUnit.Kutu :
                                                                 DrinkUnit.Sise;
+            this.UnitPrice = PriceList.Mesrubat;
         }                       
     }
 }
