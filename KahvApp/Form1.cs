@@ -16,6 +16,8 @@ namespace KahvApp
         private List<Product> kasa = new List<Product>();
         public List<string> odenenFisler = new List<string>();
         public List<string> odenmeyenFisler = new List<string>();
+        public List<Customer> borclular = new List<Customer>();
+
 
         public Form1()
         {

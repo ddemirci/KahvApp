@@ -16,7 +16,7 @@ namespace KahvApp
         private int tableNumber;
         private int fisNo;
         private List<Product> productList;
-        private decimal checkSum;
+        public decimal checkSum;
         private Form parent;
 
         public Fis(string TableNumber, Form Parent)
@@ -270,14 +270,3 @@ namespace KahvApp
     }
 }
 
-//"Küçük Çay");
-//"Büyük Çay");
-//"Türk Kahvesi"
-//"Küçük Nescafe
-//"Fincan Nescaf
-//"Soda");
-//"Kola");
-//"Sprite");
-//"Gazoz");
-//"Kaşarlı Tost"
-//"Karışık Tost"

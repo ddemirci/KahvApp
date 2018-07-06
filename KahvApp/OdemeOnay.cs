@@ -47,10 +47,16 @@ namespace KahvApp
 
         public void Borc_Button_Clicked(object Sender, EventArgs e)
         {
+            DateTime date = DateTime.Now;
             this.odendi = false;
             MessageBox.Show(this.failureMessage, "Borcunuz kaydedildi.");
             this.Close();
             (grandParent as Form1).odenmeyenFisler.Add(this.failureMessage);
+            
+            decimal tutar = (parent as Fis).checkSum;
+            Borc b = new Borc(tutar,date);
+            b.Show();
+            
         }
     }
 }
