@@ -12,11 +12,14 @@ namespace KahvApp
 {
     public partial class Form1 : Form
     {
+        public decimal hasılat;
         private List<Product> kasa = new List<Product>();
+        public List<string> fisler = new List<string>();
 
         public Form1()
         {
             InitializeComponent();
+            hasılat = decimal.Zero;
             this.masa1.Click += new EventHandler(masa_click);
             this.masa2.Click += new EventHandler(masa_click);
             this.masa3.Click += new EventHandler(masa_click);
@@ -39,7 +42,7 @@ namespace KahvApp
 
         private void masa_click(object sender, EventArgs e)
         {
-            Fis f = new Fis((sender as Button).Name);
+            Fis f = new Fis((sender as Button).Name, this);
             //f.TopLevel = false;
             //this.Controls.Add(f);
             f.Show();
@@ -52,6 +55,12 @@ namespace KahvApp
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void GunsonuAl_Button_Clicked(object Sender, EventArgs e)
+        {
+            MessageBox.Show(DateTime.Today + " tarihinde " + fisler.Count
+                            + " adet fişin toplamı " + hasılat + " TL");
         }
     }
 }

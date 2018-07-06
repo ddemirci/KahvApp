@@ -10,7 +10,7 @@ namespace KahvApp
     {
         Kola,
         Fanta,
-        Sprite
+        Sprite,
         Gazoz,
         LimonluSoda,
         Ayran

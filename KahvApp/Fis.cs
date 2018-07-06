@@ -14,18 +14,23 @@ namespace KahvApp
     public partial class Fis : Form
     {
         private int tableNumber;
+        private int fisNo;
         private List<Product> productList;
         private decimal checkSum;
+        private Form parent;
 
-        public Fis(string TableNumber)
+        public Fis(string TableNumber, Form Parent)
         {
             InitializeComponent();
 
             Numerator.GetInstance().ResetNumerator(); //sıra Numeratörünü başa döndür.
-
+            this.parent = Parent;
             this.tableNumber = Convert.ToInt32(Regex.Replace(TableNumber, "[^0-9]", ""));
             this.textBox1.Text = this.tableNumber.ToString();
             this.textBox1.ReadOnly = true;
+            fisNo = Numerator.GetInstance().FisNo();
+            this.textBox3.Text = fisNo.ToString();
+            this.textBox3.ReadOnly = true;
             comboBox2.Enabled = false;
             comboBox3.Hide();
 
@@ -36,8 +41,11 @@ namespace KahvApp
             comboBox1.Items.Add("Fincan Nescafe");
             comboBox1.Items.Add("Soda");
             comboBox1.Items.Add("Kola");
+            comboBox1.Items.Add("Fanta");
             comboBox1.Items.Add("Sprite");
             comboBox1.Items.Add("Gazoz");
+            comboBox1.Items.Add("Limonlu Soda");
+            comboBox1.Items.Add("Ayran");
             comboBox1.Items.Add("Kaşarlı Tost");
             comboBox1.Items.Add("Karışık Tost");
 
@@ -55,6 +63,8 @@ namespace KahvApp
             comboBox3.Items.Add("Tam");
 
             this.button1.Click += new System.EventHandler(Ekle_Button_Click);
+            this.button2.Click += new System.EventHandler(Sil_Button_Click);
+            this.button3.Click += new System.EventHandler(FisiKes_Button_Clicked);
 
             listView1.View = View.Details;
             listView1.Columns[1].Width = 150; // Ürün adı sütunu
@@ -191,9 +201,41 @@ namespace KahvApp
             {
 
             }
+            checkSum += Convert.ToDecimal(arr[4]);
+            textBox2.Text = checkSum.ToString();
             itm = new ListViewItem(arr);
             listView1.Items.Add(itm);
 
+        }
+
+        public void Sil_Button_Click(object Sender, EventArgs e)
+        {
+            foreach(ListViewItem item in listView1.Items)
+            {
+                if(item.Selected)
+                {
+                    checkSum -= Convert.ToDecimal(item.SubItems[4].Text);
+                    textBox2.Text = checkSum.ToString();
+                    listView1.Items.Remove(item);
+                }
+            }
+        }
+
+        public void FisiKes_Button_Clicked(object Sender, EventArgs e)
+        {
+            this.button1.Enabled = false;
+            this.button2.Enabled = false;
+            this.button3.Enabled = false;
+
+            string info = "Ödemeniz " + checkSum + " TL.";
+
+            StringBuilder SB = new StringBuilder();
+            SB.Append("Fiş No: " + this.fisNo + ", Masa: "
+                + tableNumber +", Ödeme: " + checkSum + "TL, Tarih: " + DateTime.Now );
+            string success = SB.ToString();
+
+            OdemeOnay onay = new OdemeOnay(info, success, this, parent, checkSum);
+            onay.Show();
         }
 
     }
