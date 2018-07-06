@@ -21,6 +21,8 @@ namespace KahvApp
         {
             InitializeComponent();
 
+            Numerator.GetInstance().ResetNumerator(); //sıra Numeratörünü başa döndür.
+
             this.tableNumber = Convert.ToInt32(Regex.Replace(TableNumber, "[^0-9]", ""));
             this.textBox1.Text = this.tableNumber.ToString();
             this.textBox1.ReadOnly = true;
@@ -99,54 +101,36 @@ namespace KahvApp
         {
             string[] arr = new string[5];
             ListViewItem itm;
-            arr[0] = "1";
-            //arr[1] = this.comboBox1.GetItemText(this.comboBox1.SelectedItem);
-            //arr[2] = "2.00 TL";
-            //arr[3] = "4";
-            //arr[4] = "8.00 TL";
-            //itm = new ListViewItem(arr);
-            //listView1.Items.Add(itm);
+            arr[0] = Numerator.GetInstance().OrderNo().ToString();
 
             string product = this.comboBox1.GetItemText(this.comboBox1.SelectedItem);
+            arr[1] = product;
             int count = Convert.ToInt32(this.comboBox2.GetItemText(this.comboBox2.SelectedItem));
             if (product.Equals("Küçük Çay"))
             {
                 Tea tea = new Tea(DrinkUnit.KucukBardak, count);
-                arr[1] = product;
                 arr[2] = tea.UnitPrice.ToString();
                 arr[3] = count.ToString();
                 arr[4] = (tea.UnitPrice * count).ToString();
-
-                //itm = new ListViewItem(arr);
-                //listView1.Items.Add(itm);
             }
             else if (product.Equals("Büyük Çay"))
             {
                 Tea tea = new Tea(DrinkUnit.BuyukBardak, count);
-                arr[1] = product;
                 arr[2] = tea.UnitPrice.ToString();
                 arr[3] = count.ToString();
                 arr[4] = (tea.UnitPrice * count).ToString();
-
-                //itm = new ListViewItem(arr);
-                //listView1.Items.Add(itm);
             }
             else if (product.Equals("Türk Kahvesi"))
             {
                 TurkishCoffee turkishCoffee = new TurkishCoffee(DrinkUnit.Fincan, count);
-                arr[1] = product;
                 arr[2] = turkishCoffee.UnitPrice.ToString();
                 arr[3] = count.ToString();
                 arr[4] = (turkishCoffee.UnitPrice * count).ToString();
-
-                //itm = new ListViewItem(arr);
-                //listView1.Items.Add(itm);
             }
 
             else if (product.Equals("Küçük Nescafe"))
             {
                 Nescafe nescafe = new Nescafe(DrinkUnit.KucukBardak, count);
-                arr[1] = product;
                 arr[2] = nescafe.UnitPrice.ToString();
                 arr[3] = count.ToString();
                 arr[4] = (nescafe.UnitPrice * count).ToString();
@@ -154,7 +138,6 @@ namespace KahvApp
             else if (product.Equals("Fincan Nescafe"))
             {
                 Nescafe nescafe = new Nescafe(DrinkUnit.Fincan, count);
-                arr[1] = product;
                 arr[2] = nescafe.UnitPrice.ToString();
                 arr[3] = count.ToString();
                 arr[4] = (nescafe.UnitPrice * count).ToString();
@@ -162,31 +145,43 @@ namespace KahvApp
             else if (product.Equals("Soda"))
             {
                 Soda soda = new Soda(DrinkUnit.Sise, count);
-                arr[1] = product;
                 arr[2] = soda.UnitPrice.ToString();
                 arr[3] = count.ToString();
                 arr[4] = (soda.UnitPrice * count).ToString();
             }
-            //else if(product.Equals("Kola") || 
-            //    product.Equals("Sprite") || 
-            //    product.Equals("Gazoz"))
-            //{
-            //    SoftDrink mesrubat = new SoftDrink((SoftDrinkType)product, count);
-            //    arr[1] = product;
-            //    arr[2] = mesrubat.UnitPrice.ToString();
-            //    arr[3] = count.ToString();
-            //    arr[4] = (mesrubat.UnitPrice * count).ToString();
-            //}
+            else if (product.Equals("Kola") ||
+                product.Equals("Fanta") ||
+                product.Equals("Sprite") ||
+                product.Equals("Gazoz") || 
+                product.Equals("Limonlu Soda") ||
+                product.Equals("Ayran"))
+            {
+                SoftDrinkType type = product.Equals("Kola") ? SoftDrinkType.Kola :
+                                     product.Equals("Fanta") ? SoftDrinkType.Fanta :
+                                     product.Equals("Sprite") ? SoftDrinkType.Sprite :
+                                     product.Equals("Gazoz") ? SoftDrinkType.Gazoz :
+                                     product.Equals("Limonlu Soda") ? SoftDrinkType.LimonluSoda:
+                                                                      SoftDrinkType.Ayran;
+
+                SoftDrink mesrubat = new SoftDrink(type, count);
+                arr[2] = mesrubat.UnitPrice.ToString();
+                arr[3] = count.ToString();
+                arr[4] = (mesrubat.UnitPrice * count).ToString();
+            }
+
             else if (product.Equals("Kaşarlı Tost") || product.Equals("Karışık Tost"))
             {
-                FoodUnit unit = comboBox3.Equals("Çeyrek") ? FoodUnit.Ceyrek :
-                                comboBox3.Equals("Yarım") ? FoodUnit.Yarim :
-                                                           FoodUnit.Tam;
+                FoodUnit unit = comboBox3.GetItemText(this.comboBox3.SelectedItem)
+                                         .Equals("Çeyrek") ? FoodUnit.Ceyrek :
+                                comboBox3.GetItemText(this.comboBox3.SelectedItem)
+                                         .Equals("Yarım") ? FoodUnit.Yarim :
+                                                            FoodUnit.Tam;
 
-                ToastType type = comboBox1.Equals("Kaşarlı Tost") ? ToastType.Kasarli : 
-                                                                  ToastType.Karisik ;
+                ToastType type = comboBox1.GetItemText(this.comboBox1.SelectedItem)
+                                          .Equals("Kaşarlı Tost") ? ToastType.Kasarli :
+                                                                    ToastType.Karisik;
                 Toast tost = new Toast(unit, type, count);
-                arr[1] = product;
+                arr[1] = unit + "  " + product;
                 arr[2] = tost.UnitPrice.ToString();
                 arr[3] = count.ToString();
                 arr[4] = (tost.UnitPrice * count).ToString();
