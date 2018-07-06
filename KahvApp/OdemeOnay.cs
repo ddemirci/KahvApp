@@ -19,12 +19,13 @@ namespace KahvApp
         private Form grandParent;
         private decimal tutar;
 
-        public OdemeOnay(string Text, string Success, Form Parent, Form GrandParent, decimal Tutar)
+        public OdemeOnay(string Text, string Success, string Failure, Form Parent, Form GrandParent, decimal Tutar)
         {
             InitializeComponent();
             this.parent = Parent;
             this.grandParent = GrandParent;
             this.successMessage = Success;
+            this.failureMessage = Failure;
             this.tutar = Tutar;
 
             this.label1.Text = Text;
@@ -32,24 +33,24 @@ namespace KahvApp
 
             this.button1.Click += new EventHandler(Odendi_Button_Clicked);
             this.button2.Click += new EventHandler(Borc_Button_Clicked);
-
-
+            
         }
 
         public void Odendi_Button_Clicked(object Sender, EventArgs e)
         {
             this.odendi = true;
             MessageBox.Show(this.successMessage, "Ödeme gerçekleştirildi");
-
-            (grandParent as Form1).fisler.Add(this.successMessage);
+            this.Close();
+            (grandParent as Form1).odenenFisler.Add(this.successMessage);
             (grandParent as Form1).hasılat += tutar;
         }
 
         public void Borc_Button_Clicked(object Sender, EventArgs e)
         {
             this.odendi = false;
-            MessageBox.Show("Borcunuz kaydedildi.");
-
+            MessageBox.Show(this.failureMessage, "Borcunuz kaydedildi.");
+            this.Close();
+            (grandParent as Form1).odenmeyenFisler.Add(this.failureMessage);
         }
     }
 }

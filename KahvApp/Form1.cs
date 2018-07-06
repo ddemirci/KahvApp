@@ -14,7 +14,8 @@ namespace KahvApp
     {
         public decimal hasılat;
         private List<Product> kasa = new List<Product>();
-        public List<string> fisler = new List<string>();
+        public List<string> odenenFisler = new List<string>();
+        public List<string> odenmeyenFisler = new List<string>();
 
         public Form1()
         {
@@ -37,6 +38,7 @@ namespace KahvApp
             this.masa15.Click += new EventHandler(masa_click);
             this.masa16.Click += new EventHandler(masa_click);
             this.masa17.Click += new EventHandler(masa_click);
+            this.button1.Click += new EventHandler(GunsonuAl_Button_Clicked);
             this.TopLevel = true;
         }
 
@@ -59,7 +61,7 @@ namespace KahvApp
 
         public void GunsonuAl_Button_Clicked(object Sender, EventArgs e)
         {
-            MessageBox.Show(DateTime.Today + " tarihinde " + fisler.Count
+            MessageBox.Show(DateTime.Today.ToShortDateString() + " tarihinde " + odenenFisler.Count
                             + " adet fişin toplamı " + hasılat + " TL");
         }
     }
