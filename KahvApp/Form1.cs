@@ -17,12 +17,14 @@ namespace KahvApp
         public List<string> odenenFisler = new List<string>();
         public List<string> odenmeyenFisler = new List<string>();
         public List<Customer> borclular = new List<Customer>();
+        private Form parent;
 
 
-        public Form1()
+        public Form1(Form Parent)
         {
             InitializeComponent();
             hasılat = decimal.Zero;
+            this.parent = Parent;
             this.masa1.Click += new EventHandler(masa_click);
             this.masa2.Click += new EventHandler(masa_click);
             this.masa3.Click += new EventHandler(masa_click);
@@ -65,6 +67,9 @@ namespace KahvApp
         {
             MessageBox.Show(DateTime.Today.ToShortDateString() + " tarihinde " + odenenFisler.Count
                             + " adet fişin toplamı " + hasılat + " TL");
+
+            string text = DateTime.Today.ToShortDateString() + " ==> " + hasılat + " TL.";
+            (parent as WelcomePage).GunlukGelirListesi.Add(text);
         }
     }
 }

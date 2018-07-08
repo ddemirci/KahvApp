@@ -15,6 +15,7 @@ namespace KahvApp
         public decimal Borç;
         public DateTime Date;
         private Form parent;
+
         public Borc(decimal borc, DateTime date, Form Parent)
         {
             this.Borç = borc;
