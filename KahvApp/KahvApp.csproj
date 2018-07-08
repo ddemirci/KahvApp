@@ -84,6 +84,12 @@
     <Compile Include="Tea.cs" />
     <Compile Include="Toast.cs" />
     <Compile Include="TurkishCoffee.cs" />
+    <Compile Include="WelcomePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WelcomePage.Designer.cs">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Fis.resx">
       <DependentUpon>Fis.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +111,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WelcomePage.resx">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

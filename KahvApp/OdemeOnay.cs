@@ -54,7 +54,7 @@ namespace KahvApp
             (grandParent as Form1).odenmeyenFisler.Add(this.failureMessage);
             
             decimal tutar = (parent as Fis).checkSum;
-            Borc b = new Borc(tutar,date);
+            Borc b = new Borc(tutar,date, (grandParent as Form1));
             b.Show();
             
         }

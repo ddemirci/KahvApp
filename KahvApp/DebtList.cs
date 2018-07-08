@@ -8,6 +8,6 @@ namespace KahvApp
 {
     class DebtList
     {
-        private List<> debtor;
+        //private List<> debtor;
     }
 }
