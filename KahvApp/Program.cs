@@ -16,7 +16,7 @@ namespace KahvApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WelcomePage(Form1));
+            Application.Run(new WelcomePage());
         }
     }
 }

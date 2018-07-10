@@ -23,19 +23,10 @@ namespace KahvApp
         {
             InitializeComponent();
 
-            Numerator.GetInstance().ResetNumerator(); //sıra Numeratörünü başa döndür.
             this.parent = Parent;
             this.tableNumber = Convert.ToInt32(Regex.Replace(TableNumber, "[^0-9]", ""));
-            this.textBox1.Text = this.tableNumber.ToString();
-            this.textBox1.ReadOnly = true;
-            fisNo = Numerator.GetInstance().FisNo();
-            this.textBox3.Text = fisNo.ToString();
-            this.textBox3.ReadOnly = true;
-            comboBox2.Enabled = false;
-            comboBox3.Hide();
-            this.button1.Enabled = false;  //Ekle butonu
-            this.button2.Enabled = false;  //Sil butonu
 
+            #region FisInit
             comboBox1.Items.Add("Küçük Çay");
             comboBox1.Items.Add("Büyük Çay");
             comboBox1.Items.Add("Türk Kahvesi");
@@ -63,6 +54,19 @@ namespace KahvApp
             comboBox3.Items.Add("Çeyrek");
             comboBox3.Items.Add("Yarım");
             comboBox3.Items.Add("Tam");
+            #endregion
+
+            #region ButtonAndTextBoxInit
+
+            this.textBox1.Text = this.tableNumber.ToString();
+            this.textBox1.ReadOnly = true;
+            this.textBox3.ReadOnly = true;
+            comboBox2.Enabled = false;
+            comboBox3.Hide();
+
+            this.button1.Enabled = false;  //Ekle butonu
+            this.button2.Enabled = false;  //Sil butonu
+
 
             this.button1.Click += new System.EventHandler(Ekle_Button_Click);
             this.button2.Click += new System.EventHandler(Sil_Button_Click);
@@ -71,10 +75,35 @@ namespace KahvApp
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(ComboBox1_SelectedIndexChanged);
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(ComboBox2_SelectedIndexChanged);
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(ComboBox3_SelectedIndexChanged);
+            this.FormClosing += Fis_FormClosing;
 
             listView1.View = View.Details;
             listView1.Columns[1].Width = 150; // Ürün adı sütunu
+            #endregion
 
+            
+            var exist = TableContainer.GetInstance().Where(x => x.MasaNo == this.tableNumber && x.MasaAktif == true).FirstOrDefault();
+            //Masa Dolu
+            if (exist != null)
+            {
+                this.fisNo = exist.FisNo;
+
+                foreach (ListViewItem itm in exist.Urunler)
+                {
+                    listView1.Items.Add(itm);
+                }
+
+                this.checkSum = exist.Bakiye;
+                textBox2.Text = checkSum.ToString();
+            }
+            else
+            {
+
+                fisNo = Numerator.GetInstance().FisNo();
+                Numerator.GetInstance().ResetNumerator(); //sıra Numeratörünü başa döndür.
+            }
+
+            this.textBox3.Text = fisNo.ToString();
         }
 
         private void ComboBox1_SelectedIndexChanged(object Sender, EventArgs e)
@@ -227,12 +256,30 @@ namespace KahvApp
 
                 this.button2.Enabled = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
+        public void Fis_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.WindowsShutDown)
+            {
 
+            }
+            else if (e.CloseReason == CloseReason.UserClosing)
+            {
+                //Varolan fişi ekle
+                List<ListViewItem> urunler = new List<ListViewItem>();
+                foreach(ListViewItem itm in listView1.Items)
+                {
+                    urunler.Add(itm);
+                }
+
+                TableHistory Hist = new TableHistory(this.tableNumber, this.checkSum, this.fisNo, urunler);
+                TableContainer.GetInstance().Add(Hist);
+            }
+        }
         public void Sil_Button_Click(object Sender, EventArgs e)
         {
             foreach (ListViewItem item in listView1.Items)
@@ -261,6 +308,14 @@ namespace KahvApp
             string failure = "Fiş No: " + this.fisNo + ", Masa: "
                 + tableNumber + ", Ödeme: " + checkSum + "TL YAPILMAMIŞTIR, Tarih: " + DateTime.Now;
 
+            var exist = TableContainer.GetInstance().Where(x => x.MasaNo == this.tableNumber && x.MasaAktif == true).FirstOrDefault();
+
+            //var control1 = TableContainer.GetInstance();
+            //Listeden çıkarılma
+            if (exist != null)
+                TableContainer.GetInstance().Remove(exist);
+
+            //var control2 = TableContainer.GetInstance();
             this.Close();
             OdemeOnay onay = new OdemeOnay(info, success, failure, this, parent, checkSum);
             onay.Show();
