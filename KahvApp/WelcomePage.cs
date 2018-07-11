@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace KahvApp
     {
         public List<string> GunlukGelirListesi = new List<string>();
         Form1 form;
+        public SQLiteConnection KahvAppDBConnection;
+
         public WelcomePage()
         {
             InitializeComponent();
@@ -21,6 +24,7 @@ namespace KahvApp
             this.button1.Click += new EventHandler(Masalar_Button_Click);
             this.button2.Click += new EventHandler(AylikGelir_Button_Click);
             this.button3.Click += new EventHandler(Borclular_Button_Click);
+            createNewDatabase();
             form = new Form1(this);
         }
 
@@ -37,6 +41,11 @@ namespace KahvApp
         public void Borclular_Button_Click(object Sender, EventArgs e)
         {
             //Child mekanizması kurup Form1'deki borçluları getir.
+        }
+
+        public void createNewDatabase()
+        {
+            SQLiteConnection.CreateFile("KahvAppDatabase.sqlite");
         }
     }
 }

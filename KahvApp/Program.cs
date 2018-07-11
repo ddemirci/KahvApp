@@ -18,5 +18,8 @@ namespace KahvApp
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new WelcomePage());
         }
+
+
+
     }
 }
