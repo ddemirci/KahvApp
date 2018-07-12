@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KahvApp", "KahvApp\KahvApp.csproj", "{EB85E698-6B05-48B1-AB97-12F448444F84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KahvApp.DAL", "KahvApp.DAL\KahvApp.DAL.csproj", "{93816092-AD77-4955-A36B-60620DEC5B8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EB85E698-6B05-48B1-AB97-12F448444F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB85E698-6B05-48B1-AB97-12F448444F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB85E698-6B05-48B1-AB97-12F448444F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93816092-AD77-4955-A36B-60620DEC5B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93816092-AD77-4955-A36B-60620DEC5B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93816092-AD77-4955-A36B-60620DEC5B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93816092-AD77-4955-A36B-60620DEC5B8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
