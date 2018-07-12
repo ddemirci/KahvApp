@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KahvApp.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,7 @@ namespace KahvApp
         private List<Product> productList;
         public decimal checkSum;
         private Form parent;
+        
 
         public Fis(string TableNumber, Form Parent)
         {
@@ -26,6 +28,7 @@ namespace KahvApp
             this.parent = Parent;
             this.tableNumber = Convert.ToInt32(Regex.Replace(TableNumber, "[^0-9]", ""));
 
+           
             #region FisInit
             comboBox1.Items.Add("Küçük Çay");
             comboBox1.Items.Add("Büyük Çay");
@@ -253,7 +256,7 @@ namespace KahvApp
                 textBox2.Text = checkSum.ToString();
                 itm = new ListViewItem(arr);
                 listView1.Items.Add(itm);
-
+                
                 this.button2.Enabled = true;
             }
             catch (Exception ex)
@@ -317,7 +320,7 @@ namespace KahvApp
 
             //var control2 = TableContainer.GetInstance();
             this.Close();
-            OdemeOnay onay = new OdemeOnay(info, success, failure, this, parent, checkSum);
+            OdemeOnay onay = new OdemeOnay(info, this.fisNo,this.tableNumber, this, parent, checkSum);
             onay.Show();
         }
 
