@@ -97,7 +97,7 @@ namespace KahvApp
 
         public void CreateTables()
         {
-            string sql = "create table `Gunluk Gelir Listesi` (Tarih date, `Fiş Sayısı` int, Toplam decimal(6,3))";
+            string sql = "create table if not exists `Gunluk Gelir Listesi` (Tarih date, `Fiş Sayısı` int, Toplam decimal(6,3))";
             SQLiteCommand command = new SQLiteCommand(sql, KahvAppDBConnection);
             command.ExecuteNonQuery();
 
