@@ -19,15 +19,15 @@ namespace KahvApp
         private List<Product> productList;
         public decimal checkSum;
         private Form parent;
-        
+        private object sender;
 
-        public Fis(string TableNumber, Form Parent)
+        public Fis(string TableNumber, Form Parent , object Sender)
         {
             InitializeComponent();
 
-            this.parent = Parent;
             this.tableNumber = Convert.ToInt32(Regex.Replace(TableNumber, "[^0-9]", ""));
-
+            this.parent = Parent;
+            this.sender = Sender;
            
             #region FisInit
             comboBox1.Items.Add("Küçük Çay");
@@ -272,6 +272,11 @@ namespace KahvApp
             }
             else if (e.CloseReason == CloseReason.UserClosing)
             {
+                if(this.listView1.Items.Count == 0)
+                {
+                    (this.sender as Button).BackColor = Color.Lime;
+                }
+                
                 //Varolan fişi ekle
                 List<ListViewItem> urunler = new List<ListViewItem>();
                 foreach(ListViewItem itm in listView1.Items)
@@ -300,9 +305,17 @@ namespace KahvApp
 
         public void FisiKes_Button_Clicked(object Sender, EventArgs e)
         {
+            if(this.listView1.Items.Count == 0)
+            {
+                MessageBox.Show("Adisyonda ürün bulunmamaktadır.", "Uyarı");
+                return;
+            }
+
             this.button1.Enabled = false;
             this.button2.Enabled = false;
             this.button3.Enabled = false;
+
+            (this.sender as Button).BackColor = Color.Lime;
 
             string info = "Ödemeniz " + checkSum + " TL.";
             string success = "Fiş No: " + this.fisNo + ", Masa: "

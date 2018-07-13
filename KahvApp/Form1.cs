@@ -47,7 +47,9 @@ namespace KahvApp
 
         private void masa_click(object sender, EventArgs e)
         {
-            Fis f = new Fis((sender as Button).Name, this);
+            (sender as Button).BackColor = Color.Red;
+            Fis f = new Fis((sender as Button).Name, this, (sender as Button));
+            
             //f.TopLevel = false;
             //this.Controls.Add(f);
             f.Show();
