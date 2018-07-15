@@ -35,12 +35,13 @@ namespace KahvApp
 
         public void AylikGelir_Button_Click(object Sender, EventArgs e)
         {
-            // GünlükGelirListesi'ni bastır.
+
         }
 
         public void Borclular_Button_Click(object Sender, EventArgs e)
         {
-            //Child mekanizması kurup Form1'deki borçluları getir.
+            BorcluListesi liste = new BorcluListesi();
+            liste.Show();
         }
 
     }

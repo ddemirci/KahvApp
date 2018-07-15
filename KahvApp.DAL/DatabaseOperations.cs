@@ -50,19 +50,22 @@ namespace KahvApp.DAL
             return sqlConn;
         }
 
-        public DataSet ExecuteSqlQueryToDataSet(string commandText)
+        public DataTable ExecuteSqlQueryToDataSet(string commandText)
         {
             SQLiteConnection sqlConn = OpenSqlConnection();
             SQLiteCommand dbCommand;
             try
             {
-                DataSet dataSet = new DataSet();
+                //DataSet dataSet = new DataSet();
+                DataTable dataTable = new DataTable();
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter();
                 dbCommand = CreateTextSqlCommand(commandText);
                 dbCommand.Connection = sqlConn;
                 adapter.SelectCommand = dbCommand;
-                adapter.Fill(dataSet);
-                return dataSet;
+                //adapter.Fill(dataSet);
+                //return dataSet;
+                adapter.Fill(dataTable);
+                return dataTable;
             }
             catch (SQLiteException ex)
             {
