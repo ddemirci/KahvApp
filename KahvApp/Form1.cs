@@ -45,6 +45,7 @@ namespace KahvApp
             this.masa17.Click += new EventHandler(masa_click);
             this.button1.Click += new EventHandler(GunsonuAl_Button_Clicked);
             this.timer1.Tick += new EventHandler(timer1_Tick);
+            this.timer1.Start();
             this.TopLevel = true;
 
             date = DateTime.Today; /*("{}");*/
