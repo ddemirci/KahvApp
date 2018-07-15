@@ -96,6 +96,7 @@ namespace KahvApp.DAL
                 {
                     SQLiteConnection sqlConn = OpenSqlConnection();
                     command.Connection = sqlConn;
+                    
                 }
                 return command.ExecuteNonQuery() >= 0;
             }
@@ -108,6 +109,58 @@ namespace KahvApp.DAL
             //    CloseConnection(sqlConnection);
             //}
         }
+
+        public bool ExecuteSqlQueryWithParameters(SQLiteCommand Command)
+        {
+            SQLiteConnection sqlConnection = null;
+            //SQLiteCommand command = null;
+            try
+            {
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                if (Command.Connection == null)
+                {
+                    SQLiteConnection sqlConn = OpenSqlConnection();
+                    Command.Connection = sqlConn;
+
+                }
+                return Command.ExecuteNonQuery() >= 0;
+            }
+            catch (SQLiteException Sqlex)
+            {
+                throw Sqlex;
+            }
+            //finally
+            //{
+            //    CloseConnection(sqlConnection);
+            //}
+        }
+
+        public object ExecuteSqlQueryForResult(SQLiteCommand Command)
+        {
+            SQLiteConnection sqlConnection = null;
+            //SQLiteCommand command = null;
+            try
+            {
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                if (Command.Connection == null)
+                {
+                    SQLiteConnection sqlConn = OpenSqlConnection();
+                    Command.Connection = sqlConn;
+
+                }
+                return Command.ExecuteScalar();
+            }
+            catch (SQLiteException Sqlex)
+            {
+                throw Sqlex;
+            }
+            //finally
+            //{
+            //    CloseConnection(sqlConnection);
+            //}
+        }
+
+
 
         public void CloseConnection(SQLiteConnection sqlConn)
         {

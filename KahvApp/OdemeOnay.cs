@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -42,24 +43,48 @@ namespace KahvApp
         {
             this.odendi = true;
             MessageBox.Show("Ödeme yapıldı", "Ödeme gerçekleştirildi");
+            
+            string command = "insert into Odenen_Fisler (Tarih, Fis_No, Masa, Tutar) values ( @Date, @FisNo, @MasaNo, @Tutar)";
+            SQLiteCommand Command = new SQLiteCommand(command);
+            Command.Parameters.Add("@Date", DbType.String);
+            Command.Parameters["@Date"].Value = DateTime.Today.ToShortDateString();
+
+            Command.Parameters.Add("@FisNo", DbType.Int32);
+            Command.Parameters["@FisNo"].Value = this.fisNo;
+
+            Command.Parameters.Add("@MasaNo", DbType.Int32);
+            Command.Parameters["@MasaNo"].Value = this.masaNo;
+
+            Command.Parameters.Add("@Tutar", DbType.Decimal);
+            Command.Parameters["@Tutar"].Value = this.tutar;
+
+            dbOper.ExecuteSqlQueryWithParameters(Command);
+
             this.Close();
-
-            //string success = "Fiş No: " + this.fisNo + ", Masa: "
-            //   + tableNumber + ", Ödeme: " + checkSum + "TL, Tarih: " + DateTime.Now;
-            string command = "insert into Odenen_Fisler (Tarih, Fis_No, Masa, Tutar) values (" + DateTime.Now.ToShortDateString() + ", " + this.fisNo + ", " + this.masaNo + ", " + this.tutar + ")";
-            dbOper.ExecuteSqlQuery(command);
-
-            //(grandParent as Form1).odenenFisler.Add(this.successMessage);
-            //(grandParent as Form1).hasılat += tutar;
         }
 
         public void Borc_Button_Clicked(object Sender, EventArgs e)
         {
             DateTime date = DateTime.Now;
             this.odendi = false;
-            MessageBox.Show("Borç", "Borcunuz kaydedildi.");
+
+            string command = "insert into Odenmeyen_Fisler (Tarih, Fis_No, Masa, Tutar) values ( @Date, @FisNo, @MasaNo, @Tutar)";
+
+            SQLiteCommand Command = new SQLiteCommand(command);
+            Command.Parameters.Add("@Date", DbType.String);
+            Command.Parameters["@Date"].Value = date.ToShortDateString();
+
+            Command.Parameters.Add("@FisNo", DbType.Int32);
+            Command.Parameters["@FisNo"].Value = this.fisNo;
+
+            Command.Parameters.Add("@MasaNo", DbType.Int32);
+            Command.Parameters["@MasaNo"].Value = this.masaNo;
+
+            Command.Parameters.Add("@Tutar", DbType.Decimal);
+            Command.Parameters["@Tutar"].Value = this.tutar;
+
+            dbOper.ExecuteSqlQueryWithParameters(Command);
             this.Close();
-            //(grandParent as Form1).odenmeyenFisler.Add(this.failureMessage);
 
             decimal tutar = (parent as Fis).checkSum;
             Borc b = new Borc(tutar, date, (grandParent as Form1));
