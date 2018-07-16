@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,8 @@ namespace KahvApp
             this.button3.Click += new EventHandler(borcluSil_Button_Clicked);
             dbOper = new DatabaseOperations();
             showDebtorList();
-            this.listView1.Show();
+            listView1.View = View.Details;
+            //this.listView1.Show();
         }
 
         private void showDebtorList()
@@ -63,7 +65,28 @@ namespace KahvApp
 
         private void borcluSil_Button_Clicked(object Sender, EventArgs e)
         {
+            foreach (ListViewItem item in listView1.Items)
+            {
+                if (item.Selected)
+                {
+                    string Name = item.SubItems[0].Text.ToString();
+                    string Surname = item.SubItems[1].Text.ToString();
+                    string Date = item.SubItems[2].Text.ToString();
+                    decimal Amount = Convert.ToDecimal(item.SubItems[3].Text);
 
+                    string command = "delete from Borclular where Ad = @Ad and Soyad = @Soyad and Tarih = @Tarih and Tutar = @Tutar";
+                    SQLiteCommand Command = new SQLiteCommand(command);
+                    Command.Parameters.AddWithValue("@Ad", Name);
+                    Command.Parameters.AddWithValue("@Soyad", Surname);
+                    Command.Parameters.AddWithValue("@Tarih", Date);
+                    Command.Parameters.AddWithValue("@Tutar", Amount);
+
+                    dbOper.ExecuteSqlQueryWithParameters(Command);
+                    listView1.Items.Remove(item);
+                    MessageBox.Show(Name + " " + Surname + " adlı müşteriye ait "
+                        + Date + " tarihli " + Amount + " TL borç silinmiştir.");
+                }
+            }
         }
     }
 }
